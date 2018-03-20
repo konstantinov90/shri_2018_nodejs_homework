@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Open+Sans")
+        link(rel="stylesheet", href="/css/style.css")
+        title Document
+    body
+        h1= message
+        ul
+            each _branch in branches
+                - var branch = _branch.slice(2)
+                if _branch.startsWith('* ')
+                    li.head
+                        a(href=`branch/${branch}/`)= branch
+                else
+                    li
+                        a(href=`branch/${branch}/`)= branch
