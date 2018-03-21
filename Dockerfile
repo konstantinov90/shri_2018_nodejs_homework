@@ -14,4 +14,5 @@ RUN npm install
 EXPOSE ${PORT}
 
 RUN chmod 777 ./startup.sh
+RUN chmod 777 ./docker_push.sh
 CMD ./startup.sh && npm run dev
