@@ -48,7 +48,7 @@ app.get('/file/:blobHash/', (req, res) => {
     .catch(e => console.error(e));
 });
 
-const PORT = parseInt(properties.get('express.port'), 10);
+const PORT = process.env.PORT || 5000; // parseInt(properties.get('express.port'), 10);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
