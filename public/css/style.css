@@ -1,6 +1,6 @@
-body {
+body * {
     /* background: green; */
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, 'Open Sans', sans-serif;
 }
 a:hover {
     font-weight: bold;
@@ -14,11 +14,12 @@ a:hover {
     padding: 2px;
 }
 
-.hideable > lh {
+.hideable > h4 {
     cursor: pointer;
     position: relative;
+    margin: 0 5px;
 }
-.hideable > lh:before {
+.hideable > h4:before {
     content: attr(data-text);
     border: 1px solid brown;
     background: wheat;
@@ -42,7 +43,6 @@ svg {
 
 text {
     font-weight: 300;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
     font-size: 14px;
 }
 

@@ -6,7 +6,7 @@ mixin walkTree(obj, root)
             else
                 ul.hideable
                     - newRoot = `${root}${key}/`
-                    lh
+                    h4
                        a(href=`${newRoot}`)= key
                     +walkTree(val, newRoot)
 

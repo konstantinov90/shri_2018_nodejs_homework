@@ -14,7 +14,13 @@ html(lang="en")
                 - var branch = _branch.slice(2)
                 if _branch.startsWith('* ')
                     li.head
-                        a(href=`branch/${branch}/`)= branch
+                        span
+                            span= branch + ": "
+                            a(href=`branch/${branch}/`)= "коммиты"
+                            a(href=`commit/${branch}/`)= "файлы"
+
                 else
                     li
-                        a(href=`branch/${branch}/`)= branch
+                        span= branch + ": "
+                        a(href=`branch/${branch}/`)= "коммиты"
+                        a(href=`commit/${branch}/`)= "файлы"
