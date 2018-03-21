@@ -13,7 +13,7 @@ class GitApi {
     const [subject, hash, commitDate, commiter, parents] = commitInfo.split(';');
     return {
       subject, hash, commitDate: new Date(commitDate), commiter, parents,
-    }
+    };
   }
 
   static parseCommitsData(commits) {
