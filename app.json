@@ -1,0 +1,12 @@
+{
+    "name": "shri-2018-nodejs-homework",
+    "scripts": {},
+    "env": {},
+    "formation": {
+      "web": {
+        "quantity": 1
+      }
+    },
+    "addons": [],
+    "buildpacks": []
+  }
