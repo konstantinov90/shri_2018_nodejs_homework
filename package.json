@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon main.js --watch * --ignore node_modules/ -e js,properties",
-    "lint": "eslint *.js"
+    "lint": "eslint *.js",
+    "build": "echo build",
+    "start": "npm run dev"
   },
   "author": "",
   "license": "ISC",
