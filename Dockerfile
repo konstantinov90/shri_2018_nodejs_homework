@@ -7,11 +7,9 @@ ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_css_homework.git
 RUN mkdir /app
 RUN mkdir /target
 RUN git clone ${TARGET_REPO} /target
-# 
-# 
+
 WORKDIR /app
 COPY . .
-
 
 RUN npm install
 EXPOSE ${PORT}
