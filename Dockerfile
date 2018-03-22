@@ -2,11 +2,16 @@
 FROM node:8.9.4
 
 ENV PORT=9000
-ENV REPO_PATH=/app
+ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_css_homework.git
+
+RUN mkdir /app
+RUN mkdir /target
+RUN git clone ${TARGET_REPO} /target
 # 
 # 
-RUN git clone https://github.com/konstantinov90/shri_2018_nodejs_homework.git ${REPO_PATH}
-WORKDIR ${REPO_PATH}
+WORKDIR /app
+COPY . .
+
 
 RUN npm install
 EXPOSE ${PORT}
