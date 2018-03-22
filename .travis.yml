@@ -11,7 +11,8 @@ jobs:
   include:
   - stage: tests
     script: npm run lint
-  - stage: deploy staging
+  - &deploy_template
+    stage: deploy staging
     if: tag IS blank
     env:
     - APP=shri-2018-nodejs-homework-stag
@@ -19,24 +20,19 @@ jobs:
     before_deploy:
     - docker build --no-cache --tag registry.heroku.com/$APP/web .
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    deploy:
+    deploy: &deploy_script
       provider: script
       script:
       - docker push registry.heroku.com/$APP/web
       on:
         branch: master
-  - stage: deploy production
+  - <<: *deploy_template
+    stage: deploy production
     if: tag IS present
     env:
     - APP=shri-2018-nodejs-homework-prod
-    script: skip
-    before_deploy:
-    - docker build --no-cache --tag registry.heroku.com/$APP/web .
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     deploy:
-      provider: script
-      script:
-      - docker push registry.heroku.com/$APP/web
+      <<: *deploy_script
       on:
         tags: true
   # provider: heroku
