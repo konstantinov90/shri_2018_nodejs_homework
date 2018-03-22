@@ -14,7 +14,7 @@ deploy:
     secure: vcjB1Ezd3Ste+RaOLBcKb7afFevs49XHSKaFF3V3abQ21iDZctxKqY5weFaI2NJOh+E3ZUYIott8hk9cwOt16AWooSDGO1UMfXSDUnitHwA6tUdHyhR8zeV0znv9AdgYXwgBOpBxHZAbrTzYr6/Ey6dVbIpv4AvCIXc+HFa5/FQLfezm24/DPZ6js0Guh8dbEqqPKhRPEWHLTqnBMupFXLsTLWJibSnI0mYOxpedjhzM3mWbWTXo9SkOewbhe1cN69Bs6h9ro1F8TDCHO0YoWVBD5logieeNV3gLKHfj7HSfA+DFbhIZNw7YOJuiQPr1AjJh/HTFYUmISzRp//CHUsUattZFoG1xLRBN2IfF98j3/1bJlDxICtdb6egLQRH+uoyd8MiAFHhdVyEp3UvB1p8CTcOXudcl7MFUnb8r/ka9Khx5+8mUF7K+2tm9+gLEbP6tgpvmloasdJmOnj0hIJCAmefBH/0JWEy5VPyng8eHukhDSaZmKHDM4Ck5ezPyJGy5K0XZFo8hM6j526vOJbOanar54LBDmRUH1jbXvIZpZ0IDn6QhMIXR50DZ1ich7GrjhCkJpwsKCFpTBvkOl5OpL7pP6NKMQPfd7QQSAE4pFVUUpXt8f7odKKE4F4lMKcDOszaTBqKJNx/K6c85Zuh+VSKAS14ps0sV3JjwBsY=
   on:
     branch: master
-  tags: false
+    tags: false
   app: 
     master: shri-2018-nodejs-homework-stag
 deploy:
@@ -23,6 +23,6 @@ deploy:
     secure: vcjB1Ezd3Ste+RaOLBcKb7afFevs49XHSKaFF3V3abQ21iDZctxKqY5weFaI2NJOh+E3ZUYIott8hk9cwOt16AWooSDGO1UMfXSDUnitHwA6tUdHyhR8zeV0znv9AdgYXwgBOpBxHZAbrTzYr6/Ey6dVbIpv4AvCIXc+HFa5/FQLfezm24/DPZ6js0Guh8dbEqqPKhRPEWHLTqnBMupFXLsTLWJibSnI0mYOxpedjhzM3mWbWTXo9SkOewbhe1cN69Bs6h9ro1F8TDCHO0YoWVBD5logieeNV3gLKHfj7HSfA+DFbhIZNw7YOJuiQPr1AjJh/HTFYUmISzRp//CHUsUattZFoG1xLRBN2IfF98j3/1bJlDxICtdb6egLQRH+uoyd8MiAFHhdVyEp3UvB1p8CTcOXudcl7MFUnb8r/ka9Khx5+8mUF7K+2tm9+gLEbP6tgpvmloasdJmOnj0hIJCAmefBH/0JWEy5VPyng8eHukhDSaZmKHDM4Ck5ezPyJGy5K0XZFo8hM6j526vOJbOanar54LBDmRUH1jbXvIZpZ0IDn6QhMIXR50DZ1ich7GrjhCkJpwsKCFpTBvkOl5OpL7pP6NKMQPfd7QQSAE4pFVUUpXt8f7odKKE4F4lMKcDOszaTBqKJNx/K6c85Zuh+VSKAS14ps0sV3JjwBsY=
   on:
     branch: master
-  tags: true
+    tags: true
   app: 
     master: shri-2018-nodejs-homework-prod
