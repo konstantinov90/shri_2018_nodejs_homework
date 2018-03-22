@@ -16,4 +16,4 @@ EXPOSE ${PORT}
 
 RUN chmod 777 ./startup.sh
 # RUN chmod 777 ./docker_push.sh
-CMD ./startup.sh && npm run dev
+CMD bash ./startup.sh && npm run dev
