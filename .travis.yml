@@ -9,7 +9,7 @@ services:
   - docker
 script: "npm run lint"
 deploy:
-  provider: script
+  provider: heroku
   script: bash ./docker_push.sh
   on:
     branch: master
