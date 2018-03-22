@@ -16,7 +16,7 @@ deploy:
     branch: master
   tags: false
   app: 
-    master: shri-2018-nodejs-homework
+    master: shri-2018-nodejs-homework-stag
 deploy:
   provider: heroku
   api_key:
