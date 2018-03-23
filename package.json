@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js --watch * --ignore node_modules/ -e js,properties",
-    "lint": "eslint *.js",
+    "test": "mocha test/server/*",
+    "dev": "nodemon server/main.js --watch * --ignore node_modules/ -e js,properties",
+    "lint": "eslint server/*.js test/server/*.js public/js/*.js",
     "build": "echo build",
-    "start": "npm run dev"
+    "start": "node server/main.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,10 +18,13 @@
     "pug": "^2.0.1"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
+    "mocha": "^5.0.4",
     "nodemon": "^1.17.2",
+    "rimraf": "^2.6.2",
     "stylelint": "^9.1.3",
     "stylelint-config-recommended": "^2.1.0"
   }
