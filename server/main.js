@@ -11,42 +11,53 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  gitApi.getBranches()
-    .then((branches) => {
-      res.render('index', { title: 'HEY', branches });
-    })
-    .catch(e => console.error(e));
+app.get('/', (req, res, next) => {
+  Promise.all([
+    gitApi.execGitCmd('remote', 'get-url', 'origin'),
+    gitApi.getBranches(),
+  ]).then(([repoUrl, branches]) => {
+    res.render('index', { repoUrl, branches });
+  }).catch(next);
 });
 
-app.get('/branch/:branchName/', (req, res) => {
+app.get('/branch/:branchName/', (req, res, next) => {
   const { branchName } = req.params;
   gitApi.getBranchInfo(branchName)
     .then((commits) => {
       res.render('branchInfo', { branchName, commits });
-    })
-    .catch(e => console.error(e));
+    }).catch(next);
 });
 
-app.get('/commit/:commitHash/*', (req, res) => {
+
+app.get('/commit/:commitHash/*', (req, res, next) => {
   const { commitHash } = req.params;
   const path = req.params[0] || '';
   const root = path.endsWith('/') ? path.slice(0, -1) : path;
-  gitApi.getCommitInfoAndFiles(commitHash, root)
-    .then(({ commitInfo, commitFiles }) => {
-      res.render('commitInfo', { commitInfo, commitFiles, root });
-    })
-    .catch(e => console.error(e));
+  Promise.all([
+    gitApi.getCommitInfo(commitHash),
+    gitApi.getCommitFiles(commitHash, root),
+  ]).then(([commitInfo, commitFiles]) => {
+    res.render('commitInfo', { commitInfo, commitFiles, root });
+  }).catch(next);
 });
 
-app.get('/file/:blobHash/', (req, res) => {
-  const { blobHash } = req.params;
-  gitApi.getBlob(blobHash)
-    .then((lines) => {
-      res.render('fileInfo', { lines });
-    })
-    .catch(e => console.error(e));
+app.get('/file/:commitHash/:blobHash/', (req, res, next) => {
+  const { commitHash, blobHash } = req.params;
+  Promise.all([
+    gitApi.getFileInfo(commitHash, blobHash),
+    gitApi.getBlob(blobHash),
+  ]).then(([{ name }, lines]) => {
+    res.render('fileInfo', { name, lines });
+  }).catch(next);
 });
+
+/* eslint-disable no-unused-vars */
+app.use((err, req, res, next) => {
+  // error handler
+  const error = process.env.NODE_ENV === 'production' ? 'Ooops!' : err.stack;
+  res.render('error', { error });
+});
+/* eslint-enable no-unused-vars */
 
 const PORT = process.env.PORT || 5000; // parseInt(properties.get('express.port'), 10);
 

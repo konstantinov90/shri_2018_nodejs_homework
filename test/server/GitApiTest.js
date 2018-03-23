@@ -58,7 +58,7 @@ Don't tell anybody you've seen me!
         greater: {
           path: {
             name: 'path',
-            value: 'MCmcGuffin',
+            hash: 'MCmcGuffin',
           },
         },
       },
@@ -66,7 +66,7 @@ Don't tell anybody you've seen me!
         for: {
           test: {
             name: 'test',
-            value: 'mcGuffin',
+            hash: 'mcGuffin',
           },
         },
       },
@@ -91,8 +91,8 @@ Don't tell anybody you've seen me!
       Object.keys(obj).forEach((k) => {
         const val = obj[k];
         if (typeof val === 'string') {
-          if (k === 'value') {
-            obj[k] = 'hash';
+          if (k === 'hash') {
+            obj[k] = k;
           }
         } else {
           replaceHash(obj[k]);
@@ -125,8 +125,8 @@ Don't tell anybody you've seen me!
         replaceHash(answer);
 
         expect(answer).deep.equal({
-          'first.txt': { name: 'first.txt', value: 'hash' },
-          'second.md': { name: 'second.md', value: 'hash' },
+          'first.txt': { name: 'first.txt', hash: 'hash' },
+          'second.md': { name: 'second.md', hash: 'hash' },
         });
       });
       it('also should return tree of branch\'s current commit', async () => {
@@ -134,12 +134,12 @@ Don't tell anybody you've seen me!
         replaceHash(answer);
 
         expect(answer).deep.equal({
-          'first.txt': { name: 'first.txt', value: 'hash' },
-          'second.md': { name: 'second.md', value: 'hash' },
+          'first.txt': { name: 'first.txt', hash: 'hash' },
+          'second.md': { name: 'second.md', hash: 'hash' },
           deeply: {
             rooted: {
               folder: {
-                '.hidden': { name: '.hidden', value: 'hash' },
+                '.hidden': { name: '.hidden', hash: 'hash' },
               },
             },
           },
@@ -150,21 +150,21 @@ Don't tell anybody you've seen me!
         replaceHash(answer);
         expect(answer).deep.equal({
           folder: {
-            '.hidden': { name: '.hidden', value: 'hash' },
+            '.hidden': { name: '.hidden', hash: 'hash' },
           },
         });
       });
     });
     describe('getBlob', () => {
       it('should return files content', async () => {
-        const fileHash = (await gitApi.getCommitFiles('master'))['first.txt'].value;
+        const fileHash = (await gitApi.getCommitFiles('master'))['first.txt'].hash;
         const answer = await gitApi.getBlob(fileHash);
         expect(answer).deep.equal(['I think I gotta change!']);
       });
       it('also it should be able to show same file from previous commits', async () => {
         const commitHash = (await gitApi.getBranchInfo('master'))
           .filter(c => c.subject === 'first commit')[0].hash;
-        const fileHash = (await gitApi.getCommitFiles(commitHash))['first.txt'].value;
+        const fileHash = (await gitApi.getCommitFiles(commitHash))['first.txt'].hash;
         const answer = await gitApi.getBlob(fileHash);
         expect(answer).deep.equal(['hello test', 'this is a test file', 'hope you like me!']);
       });

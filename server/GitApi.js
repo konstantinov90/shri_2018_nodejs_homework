@@ -28,30 +28,29 @@ class GitApi {
     };
   }
 
-  static parseFilesData(files) {
+  static parseFilesData(filesInfo) {
     const tree = {};
-    files.map(f => GitApi.parseFileInfo(f, tree));
+    filesInfo.map(f => GitApi.parseFileInfo(f))
+      .forEach(({ name, hash }) => GitApi.recursivelyDescendTree(name, hash, tree));
     return tree;
   }
 
-  static parseFileInfo(_fileInfo, _tree) {
+  static parseFileInfo(_fileInfo) {
     // имя файла отделено табуляцией, что, несомненно, бесит
     const [fileInfo, name] = _fileInfo.split('\t');
     // const [mode, type, hash, ..._] = fileInfo.split(' ').filter(d => d !== '');
     const hash = fileInfo.split(' ').filter(d => d !== '')[2];
 
-    GitApi.recursivelyDescendTree(name, hash, _tree);
-
-    // return tree;
+    return { name, hash };
   }
 
-  static recursivelyDescendTree(_path, value, _tree) {
+  static recursivelyDescendTree(_path, hash, _tree) {
     const path = _path.split('/');
 
     /* eslint-disable no-param-reassign */
     path.reduce((tree, el, i) => {
       if (i === path.length - 1) {
-        tree[el] = { name: el, value }; // поместим значение в нужное место
+        tree[el] = { name: el, hash }; // поместим значение в нужное место
       } else {
         tree[el] = tree[el] || {};
       }
@@ -119,11 +118,11 @@ class GitApi {
       .then(commitFilesTree => GitApi.filterCommitFilesTree(commitFilesTree, root));
   }
 
-  getCommitInfoAndFiles(commitHash, root = '') {
-    return Promise.all([
-      this.getCommitInfo(commitHash),
-      this.getCommitFiles(commitHash, root),
-    ]).then(([commitInfo, commitFiles]) => ({ commitInfo, commitFiles }));
+  getFileInfo(commitHash, fileHash) {
+    return this.execGitCmd('ls-tree', '-r', commitHash)
+      .then(GitApi.splitLines)
+      .then(lines => lines.map(GitApi.parseFileInfo))
+      .then(filesInfo => filesInfo.filter(fi => fi.hash === fileHash)[0]);
   }
 
   getBlob(blobHash) {

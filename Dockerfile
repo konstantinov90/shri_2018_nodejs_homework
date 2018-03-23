@@ -6,8 +6,7 @@ ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_nodejs_homework.git
 
 RUN mkdir /app
 RUN mkdir /target
-# 
-# 
+
 WORKDIR /app
 COPY . .
 

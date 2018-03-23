@@ -1,31 +1,26 @@
-mixin walkTree(obj, root)
-    for val, key in obj
-        li(class=root === "./"? "": "hidden")
-            if (val.hasOwnProperty('hash'))
-                a(href=`/file/${val.hash}/`)= key
-            else
-                ul.hideable
-                    - newRoot = `${root}${key}/`
-                    h4
-                       a(href=`${newRoot}`)= key
-                    +walkTree(val, newRoot)
+extends layout.pug
 
-<!DOCTYPE html>
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Open+Sans")
-        link(rel="stylesheet", href="/css/style.css")
-        title Document
-    body
-        h1= commitInfo.subject
-        - path = root.split('/')
-        - linkDepth = path.length
-        if root
-            for el, i in ['..'].concat(path)
-                a(href='../'.repeat(linkDepth--))= el+'/  '
-        ul
-            +walkTree(commitFiles, './')
-        script(src="/js/script.js")
+block content
+  mixin walkTree(obj, root)
+    for val, key in obj
+      li(class=root === "./" ? "" : "hidden")
+        if (val.hasOwnProperty('hash'))
+          a(href=`/file/${commitInfo.hash}/${val.hash}/`)= key
+        else
+          ul.hideable
+            - newRoot = `${root}${key}/`
+            h4
+              a(href=`${newRoot}`)= key
+            +walkTree(val, newRoot)
+
+  h1= commitInfo.subject
+  - path = root.split('/')
+  - linkDepth = path.length
+  if root
+    for el, i in ['..'].concat(path)
+      a.bread-crumb(href='../'.repeat(linkDepth--))= el+'/  '
+  ul
+    +walkTree(commitFiles, './')
+
+block scripts
+  script(src="/js/script.js")
