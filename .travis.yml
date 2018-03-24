@@ -38,9 +38,8 @@ jobs:
       on:
         all_branches: true
 
-  - after_deploy:
-    stage: integration testing
-    script npm run hermione
+  - stage: integration testing
+    script: npm run hermione
 
   - <<: *deploy_template
     stage: deploy staging
