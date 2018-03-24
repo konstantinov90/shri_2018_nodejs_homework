@@ -13,15 +13,15 @@ addons:
     access_key: $SAUCELABS_API_KEY
 jobs:
   include:
-  - stage: integration testing
+  # - stage: integration testing
     # before_script:
     # - npm run selenium-standalone install
     # - npm run preHermione
-    script:
+    # script:
     # - npm run selenium-standalone start &
     # - npm run hermioneTestServer &
     # - sleep 5
-    - npm run hermione
+    # - npm run hermione
     # after_script: npm run postHermione
   - stage: unit testing
     script:
