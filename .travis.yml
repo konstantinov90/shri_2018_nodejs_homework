@@ -6,13 +6,17 @@ cache:
   directories:
   - node_modules
 
+env:
+- TEST_APP=shri-2018-nodejs-homework-test
+
 aliases:
 - &deploy_template
   script: skip
   install: skip
   before_deploy:
-  - docker build --no-cache --tag registry.heroku.com/$APP/web .
   - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+  - docker pull registry.heroku.com/$TEST_APP/web:latest
+  - docker tag registry.heroku.com/$TEST_APP/web:latest registry.heroku.com/$APP/web
 - &deploy_script
   provider: script
   script:
@@ -28,18 +32,21 @@ jobs:
 
   - <<: *deploy_template
     stage: pre integration testing deployment
-    addons:
-      sauce_connect:
-        username: konstantinov90
-        access_key: $SAUCELABS_API_KEY
     env:
-    - APP=shri-2018-nodejs-homework-test
+    - APP=$TEST_APP
+    before_deploy:
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+    - docker build --no-cache --tag registry.heroku.com/$APP/web .
     deploy:
       <<: *deploy_script
       on:
         all_branches: true
 
   - stage: integration testing
+    addons:
+      sauce_connect:
+        username: konstantinov90
+        access_key: $SAUCELABS_API_KEY
     script: npm run hermione
 
   - <<: *deploy_template
@@ -47,7 +54,7 @@ jobs:
     if: tag IS blank
     env:
     - APP=shri-2018-nodejs-homework-stag
-    deploy: 
+    deploy:
       <<: *deploy_script
       on:
         branch: master
