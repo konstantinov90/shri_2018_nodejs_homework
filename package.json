@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint server/*.js test/server/*.js test/utils/*.js public/js/*.js& stylelint public/css/*.css",
+    "test": "nyc mocha test/server/*",
     "selenium-standalone": "selenium-standalone",
     "hermioneTestServer": "npm start test/utils/test.properties",
-    "test": "nyc mocha test/server/*",
-    "hermione": "node test/utils/preHermione.js& hermione test/hermione/*& node test/utils/postHermione.js",
+    "preHermione": "node test/utils/preHermione.js",
+    "hermione": "hermione test/hermione/*",
+    "postHermione": "node test/utils/postHermione.js",
     "dev": "set NODE_ENV=development& nodemon server/main.js --watch * --ignore node_modules/ -e js,properties",
-    "lint": "eslint server/*.js test/server/*.js test/utils/*.js public/js/*.js& stylelint public/css/*.css",
     "build": "echo build",
     "start": "set NODE_ENV=production& node server/main.js"
   },
