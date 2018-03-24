@@ -5,7 +5,7 @@ const GitApi = require('./GitApi');
 // оставим себе возможность перегрузки проперти файла - для тестов
 const propertiesFile = process.argv[2] || 'app.properties';
 
-console.log(propertiesFile, process.argv)
+console.log(propertiesFile, process.argv);
 
 const properties = PropertiesReader(propertiesFile);
 
@@ -16,7 +16,13 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
+
 app.get('/', (req, res, next) => {
+  console.log('index');
   Promise.all([
     gitApi.execGitCmd('remote', 'get-url', 'origin'),
     gitApi.getBranches(),

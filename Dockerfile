@@ -10,7 +10,7 @@ RUN mkdir /target
 WORKDIR /app
 COPY . .
 
-RUN npm install
+RUN npm install --only=production
 EXPOSE ${PORT}
 
 CMD echo express.port=${PORT} > app.properties && \
