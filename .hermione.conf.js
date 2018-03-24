@@ -21,8 +21,14 @@ if (type().startsWith('Windows')) {
   };
 }
 
-module.exports = {
-  baseUrl: 'https://shri-2018-nodejs-homework-prod.herokuapp.com/',
-  gridUrl: `http://konstantinov90:${process.env.SAUCELABS_API_KEY}@ondemand.saucelabs.com:80/wd/hub`,
-  browsers,
-};
+let baseUrl, gridUrl;
+
+if (process.env.HERMIONE === 'local') {
+  baseUrl = 'http://localhost:9999';
+  gridUrl = 'http://localhost:4444/wd/hub';
+} else {
+  baseUrl = 'https://shri-2018-nodejs-homework-test.herokuapp.com/';
+  gridUrl = `http://konstantinov90:${process.env.SAUCELABS_API_KEY}@ondemand.saucelabs.com:80/wd/hub`;
+}
+
+module.exports = { baseUrl, gridUrl, browsers };

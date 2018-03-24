@@ -10,6 +10,10 @@ async function createFile(root, filename, content) {
   await promisify(fs.writeFile)(path.join(root, filename), content);
 }
 
+async function createFolder(folderPath) {
+  await promisify(fs.mkdir)(folderPath);
+}
+
 async function createMockRepo(repoPath) {
   const gitApi = new GitApi(repoPath);
 
@@ -17,8 +21,8 @@ async function createMockRepo(repoPath) {
 
   await deepFldr.reduce(async (p, f, i) => {
     await p;
-    return promisify(fs.mkdir)(path.join(repoPath, ...deepFldr.slice(0, i + 1)));
-  }, promisify(fs.mkdir)(repoPath));
+    return createFolder(path.join(repoPath, ...deepFldr.slice(0, i + 1)));
+  }, createFolder(repoPath));
   await gitApi.execGitCmd('init');
   await gitApi.execGitCmd('remote', 'add', 'origin', 'https://test.git');
   await gitApi.execGitCmd('config', 'core.autocrlf', 'false');
@@ -53,4 +57,4 @@ async function disposeOfMockRepo(repoPath) {
 
 const repoPath = path.join(__dirname, 'test_repo');
 
-module.exports = { createMockRepo, disposeOfMockRepo, repoPath };
+module.exports = { createFolder, createMockRepo, disposeOfMockRepo, repoPath };
