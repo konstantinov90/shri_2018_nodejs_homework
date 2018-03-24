@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-  h4= repoUrl
+  h4.repo-url= repoUrl
   ul
     each _branch in branches
       - var branch = _branch.slice(2)

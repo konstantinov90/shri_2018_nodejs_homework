@@ -5,29 +5,53 @@ node_js:
 cache:
   directories:
   - node_modules
-services:
-- docker
+
+aliases:
+- &deploy_template
+  script: skip
+  install: skip
+  before_deploy:
+  - docker build --no-cache --tag registry.heroku.com/$APP/web .
+  - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+- &deploy_script
+  provider: script
+  script:
+  - docker push registry.heroku.com/$APP/web
+
 jobs:
   include:
-  - stage: tests
+  - stage: unit testing
     script:
     - npm run lint
+    - npm run stylelint
     - npm test
-  - &deploy_template
+
+  - <<: *deploy_template
+    stage: pre integration testing deployment
+    addons:
+      sauce_connect:
+        username: konstantinov90
+        access_key: $SAUCELABS_API_KEY
+    env:
+    - APP=shri-2018-nodejs-homework-test
+    deploy:
+      <<: *deploy_script
+      on:
+        all_branches: true
+
+  - stage: integration testing
+    script: npm run hermione
+
+  - <<: *deploy_template
     stage: deploy staging
     if: tag IS blank
     env:
     - APP=shri-2018-nodejs-homework-stag
-    script: skip
-    before_deploy:
-    - docker build --no-cache --tag registry.heroku.com/$APP/web .
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    deploy: &deploy_script
-      provider: script
-      script:
-      - docker push registry.heroku.com/$APP/web
+    deploy: 
+      <<: *deploy_script
       on:
         branch: master
+
   - <<: *deploy_template
     stage: deploy production
     if: tag IS present
