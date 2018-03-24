@@ -4,6 +4,14 @@ FROM node:8.9.4
 ENV PORT=9000
 ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_nodejs_homework.git
 
+RUN git --version
+RUN wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
+RUN tar -zxf git-2.9.5.tar.gz
+WORKDIR /git-2.9.5
+RUN make prefix=/usr/local all
+RUN make prefix=/usr/local install
+RUN git --version
+
 RUN mkdir /app
 RUN mkdir /target
 
