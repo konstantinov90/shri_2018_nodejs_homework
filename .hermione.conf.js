@@ -23,6 +23,6 @@ if (type().startsWith('Windows')) {
 
 module.exports = {
   baseUrl: 'https://shri-2018-nodejs-homework-prod.herokuapp.com/',
-  gridUrl: `http://konstantinov90:${process.env.SAUCELABS_PWD}@ondemand.saucelabs.com:80/wd/hub`,
+  gridUrl: `http://konstantinov90:${process.env.SAUCELABS_API_KEY}@ondemand.saucelabs.com:80/wd/hub`,
   browsers,
 };
