@@ -72,9 +72,6 @@ class GitApi {
 
       const runner = spawn('git', cmd, { cwd: this.repoDirectory });
 
-      runner.on('error', (err) => {
-        reject(err);
-      });
 
       runner.stdout.setEncoding('utf-8');
       runner.stderr.setEncoding('utf-8');
@@ -87,6 +84,9 @@ class GitApi {
       });
       runner.on('close', () => {
         resolve(buffer ? buffer.toString() : null);
+      });
+      runner.on('error', (err) => {
+        reject(err);
       });
     });
   }

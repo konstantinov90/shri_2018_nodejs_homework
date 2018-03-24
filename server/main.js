@@ -5,8 +5,6 @@ const GitApi = require('./GitApi');
 // оставим себе возможность перегрузки проперти файла - для тестов
 const propertiesFile = process.argv[2] || 'app.properties';
 
-console.log(propertiesFile, process.argv);
-
 const properties = PropertiesReader(propertiesFile);
 
 const gitApi = new GitApi(properties.get('repository.directory'));
@@ -16,20 +14,11 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 
-app.use((req, res, next) => {
-  console.log(req.url);
-  next();
-});
-
 app.get('/', (req, res, next) => {
-  console.log('index');
   Promise.all([
-    // gitApi.execGitCmd('remote', 'get-url', 'origin'),
+    gitApi.execGitCmd('remote', 'get-url', 'origin'),
     gitApi.getBranches(),
-  ]).then(([/*repoUrl, */branches]) => {
-    console.log('promise done');
-    const repoUrl = "heroku";
-    console.log(repoUrl, branches);
+  ]).then(([repoUrl, branches]) => {
     res.render('index', { repoUrl, branches });
   }).catch(next);
 });
@@ -68,7 +57,7 @@ app.get('/file/:commitHash/:blobHash/', (req, res, next) => {
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
   // error handler
-  const error = process.env.NODE_ENV === 'production' ? 'Ooops!' : err.stack;
+  const error = process.env.NODE_ENV === 'production' ? 'Ooops!' : err.message;
   res.render('error', { error });
 });
 /* eslint-enable no-unused-vars */
