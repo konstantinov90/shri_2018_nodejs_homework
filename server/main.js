@@ -5,6 +5,8 @@ const GitApi = require('./GitApi');
 // оставим себе возможность перегрузки проперти файла - для тестов
 const propertiesFile = process.argv[2] || 'app.properties';
 
+console.log(propertiesFile, process.argv)
+
 const properties = PropertiesReader(propertiesFile);
 
 const gitApi = new GitApi(properties.get('repository.directory'));
