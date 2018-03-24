@@ -1,12 +1,9 @@
-const path = require('path');
-
 const { expect } = require('chai');
 
 const GitApi = require('../../server/GitApi');
-const { createMockRepo, disposeOfMockRepo } = require('../utils/createMockRepo');
+const { createMockRepo, disposeOfMockRepo, repoPath } = require('../utils/createMockRepo');
 
 describe('testing', () => {
-  const repoPath = path.join(__dirname, 'test_repo');
   const gitApi = new GitApi(repoPath);
 
   before('create test repository', async () => {

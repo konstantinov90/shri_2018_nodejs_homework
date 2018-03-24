@@ -20,6 +20,7 @@ async function createMockRepo(repoPath) {
     return promisify(fs.mkdir)(path.join(repoPath, ...deepFldr.slice(0, i + 1)));
   }, promisify(fs.mkdir)(repoPath));
   await gitApi.execGitCmd('init');
+  await gitApi.execGitCmd('remote', 'add', 'origin', 'https://test.git');
   await gitApi.execGitCmd('config', 'core.autocrlf', 'false');
 
   await createFile(repoPath, 'first.txt', `hello test
@@ -50,4 +51,6 @@ async function disposeOfMockRepo(repoPath) {
   await promisify(rimraf)(repoPath);
 }
 
-module.exports = { createMockRepo, disposeOfMockRepo };
+const repoPath = path.join(__dirname, 'test_repo');
+
+module.exports = { createMockRepo, disposeOfMockRepo, repoPath };

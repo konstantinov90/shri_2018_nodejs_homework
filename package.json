@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "selenium-standalone": "selenium-standalone",
+    "hermioneTestServer": "npm start test/utils/test.properties",
     "test": "nyc mocha test/server/*",
     "hermione": "node test/utils/preHermione.js& hermione test/hermione/*& node test/utils/postHermione.js",
     "dev": "set NODE_ENV=development& nodemon server/main.js --watch * --ignore node_modules/ -e js,properties",
