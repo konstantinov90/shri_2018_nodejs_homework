@@ -57,4 +57,6 @@ async function disposeOfMockRepo(repoPath) {
 
 const repoPath = path.join(__dirname, 'test_repo');
 
-module.exports = { createFolder, createMockRepo, disposeOfMockRepo, repoPath };
+module.exports = {
+  createFolder, createMockRepo, disposeOfMockRepo, repoPath,
+};
