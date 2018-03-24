@@ -19,19 +19,10 @@ aliases:
 
 jobs:
   include:
-  # - stage: integration testing
-    # before_script:
-    # - npm run selenium-standalone install
-    # - npm run preHermione
-    # script:
-    # - npm run selenium-standalone start &
-    # - npm run hermioneTestServer &
-    # - sleep 5
-    # - npm run hermione
-    # after_script: npm run postHermione
   - stage: unit testing
     script:
     - npm run lint
+    - npm run stylelint
     - npm test
 
   - <<: *deploy_template

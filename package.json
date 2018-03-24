@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint server/*.js test/server/*.js test/utils/*.js public/js/*.js& stylelint public/css/*.css",
+    "lint": "eslint server/*.js test/server/*.js test/utils/*.js public/js/*.js",
+    "stylelint": "stylelint public/css/*.css",
     "test": "nyc mocha test/server/*",
     "selenium-standalone": "selenium-standalone",
     "hermioneTestServer": "npm start test/utils/test.properties",

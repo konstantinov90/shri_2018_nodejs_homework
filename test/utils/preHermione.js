@@ -1,5 +1,5 @@
 const GitApi = require('../../server/GitApi');
-// const { createFolder, createMockRepo, repoPath } = require('./createMockRepo');
+const { createFolder, createMockRepo, repoPath } = require('./createMockRepo');
 
 // createMockRepo(repoPath)
 //   .then(() => console.log('test repository prepared'));
