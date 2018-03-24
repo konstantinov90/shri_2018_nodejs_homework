@@ -27,6 +27,16 @@ jobs:
     script:
     - npm run lint
     - npm test
+  - <<: *deploy_template
+    stage: integration testing
+    env:
+    - APP=shri-2018-nodejs-homework-test
+    deploy:
+      <<: *deploy_script
+      on:
+        all_branches: true
+    after_deploy:
+    - npm run hermione
   - &deploy_template
     stage: deploy staging
     if: tag IS blank
