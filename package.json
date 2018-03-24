@@ -7,12 +7,9 @@
     "lint": "eslint server/*.js test/server/*.js test/utils/*.js public/js/*.js",
     "stylelint": "stylelint public/css/*.css",
     "test": "nyc mocha test/server/*",
-    "selenium-standalone": "selenium-standalone",
     "hermioneTestServer": "npm start test/utils/test.properties",
-    "preHermione": "node test/utils/preHermione.js",
-    "hermione": "hermione test/hermione/*",
-    "postHermione": "node test/utils/postHermione.js",
     "hermioneLocal": "set HERMIONE=local& node test/utils/preHermione.js& hermione test/hermione/& node test/utils/postHermione.js",
+    "hermione": "hermione test/hermione/*",
     "dev": "set NODE_ENV=development& nodemon server/main.js --watch * --ignore node_modules/ -e js,properties",
     "build": "echo build",
     "start": "set NODE_ENV=production& node server/main.js"
@@ -35,7 +32,6 @@
     "nodemon": "^1.17.2",
     "nyc": "^11.6.0",
     "rimraf": "^2.6.2",
-    "selenium-standalone": "^6.13.0",
     "stylelint": "^9.1.3",
     "stylelint-config-recommended": "^2.1.0"
   }

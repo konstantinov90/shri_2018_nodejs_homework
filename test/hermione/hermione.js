@@ -19,6 +19,6 @@ describe('Index page', () => {
 
   it('should have correct remote URL', async function() {
     await this.browser.url('/');
-    expect(await this.browser.getText('.repo-url')).to.be.equal('https://github.com/konstantinov90/shri_2018_ooops!_homework');
+    expect(await this.browser.getText('.repo-url')).to.be.equal('https://github.com/konstantinov90/shri_2018_css_homework');
   });
 });
