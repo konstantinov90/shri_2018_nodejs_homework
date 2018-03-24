@@ -7,6 +7,10 @@ cache:
   - node_modules
 services:
 - docker
+addons:
+  sauce_connect:
+    username: konstantinov90
+    access_key: $SAUCELABS_API_KEY
 jobs:
   include:
   - stage: unit testing

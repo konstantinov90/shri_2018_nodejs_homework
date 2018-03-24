@@ -22,7 +22,7 @@ if (type().startsWith('Windows')) {
 }
 
 module.exports = {
-  baseUrl: 'http://localhost:9999',
-  gridUrl: 'http://localhost:4444/wd/hub',
+  baseUrl: 'https://shri-2018-nodejs-homework-prod.herokuapp.com/',
+  gridUrl: 'https://ondemand.saucelabs.com:80/wd/hub',
   browsers,
 };
