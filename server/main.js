@@ -2,7 +2,10 @@ const express = require('express');
 const PropertiesReader = require('properties-reader');
 const GitApi = require('./GitApi');
 
-const properties = PropertiesReader('app.properties');
+// оставим себе возможность перегрузки проперти файла - для тестов
+const propertiesFile = process.argv[2] || 'app.properties';
+
+const properties = PropertiesReader(propertiesFile);
 
 const gitApi = new GitApi(properties.get('repository.directory'));
 
@@ -16,6 +19,8 @@ app.get('/', (req, res, next) => {
     gitApi.execGitCmd('remote', 'get-url', 'origin'),
     gitApi.getBranches(),
   ]).then(([repoUrl, branches]) => {
+    console.log('promise done');
+    console.log(repoUrl, branches);
     res.render('index', { repoUrl, branches });
   }).catch(next);
 });
@@ -59,7 +64,7 @@ app.use((err, req, res, next) => {
 });
 /* eslint-enable no-unused-vars */
 
-const PORT = process.env.PORT || 5000; // parseInt(properties.get('express.port'), 10);
+const PORT = parseInt(properties.get('express.port'), 10) || 5000;
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

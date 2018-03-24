@@ -26,4 +26,10 @@ describe('Главная страница', () => {
     await this.browser.url('/');
     expect(await this.browser.getTitle()).to.be.equal('SHRI 2018 GIT APP!!1!!1Один!');
   });
+
+  it('должен быть правильный список веток', async function() {
+    await this.browser.url('/');
+    console.log(await this.browser.getHTML('body'))
+    assert.ok(true, 'asdasd');
+  });
 });
