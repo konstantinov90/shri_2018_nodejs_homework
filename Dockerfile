@@ -4,6 +4,7 @@ FROM node:8.9.4
 ENV PORT=9000
 ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_nodejs_homework.git
 
+# нужно обновить git, ибо в стандартной версии нет некоторых команд
 RUN git --version
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -24,6 +25,11 @@ COPY . .
 RUN npm install --only=production
 EXPOSE ${PORT}
 
+# заполняем app.properties
+# клонируем репозиторий 
+# и чекаутим все его ветки
+# возвращаемся в мастер
+# и запускаем
 CMD echo express.port=${PORT} > app.properties && \
     echo repository.directory=/target >> app.properties && \
     git clone ${TARGET_REPO} /target && \

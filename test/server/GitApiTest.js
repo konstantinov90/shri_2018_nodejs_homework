@@ -17,6 +17,15 @@ describe('testing', () => {
     await disposeOfMockRepo(repoPath);
   });
 
+  it('execCmd should properly return error', async () => {
+    try {
+      await gitApi.execGitCmd('bla-bla');
+      expect(true).to.be.equal(false);
+    } catch (err) {
+      expect(true).to.be.equal(true);
+    }
+  });
+
   describe('GitApi static methods', () => {
     const sample = {
       another: {
