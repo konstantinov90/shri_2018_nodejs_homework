@@ -15,6 +15,7 @@ EXPOSE ${PORT}
 
 CMD echo express.port=${PORT} > app.properties && \
     echo repository.directory=/target >> app.properties && \
+    cat app.properties && \
     git clone ${TARGET_REPO} /target && \
     cd /target && \
     git branch --list -a | grep remotes | grep -v "remotes/origin/HEAD" | cut -d"/" -f 3 | awk '{print "git checkout " $0}' | bash && \
