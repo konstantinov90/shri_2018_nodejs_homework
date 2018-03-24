@@ -24,10 +24,11 @@ app.use((req, res, next) => {
 app.get('/', (req, res, next) => {
   console.log('index');
   Promise.all([
-    gitApi.execGitCmd('remote', 'get-url', 'origin'),
+    // gitApi.execGitCmd('remote', 'get-url', 'origin'),
     gitApi.getBranches(),
-  ]).then(([repoUrl, branches]) => {
+  ]).then(([/*repoUrl, */branches]) => {
     console.log('promise done');
+    const repoUrl = "heroku";
     console.log(repoUrl, branches);
     res.render('index', { repoUrl, branches });
   }).catch(next);
