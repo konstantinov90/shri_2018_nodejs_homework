@@ -10,9 +10,8 @@ services:
 jobs:
   include:
   - stage: tests
-    script:
-    - npm run lint
-    - npm test
+    script: npm run lint
+  - script: npm test
   - &deploy_template
     stage: deploy staging
     if: tag IS blank
