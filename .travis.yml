@@ -12,8 +12,8 @@ jobs:
   - stage: tests
     before_script:
     - npm run selenium-standalone install
-    - npm run selenium-standalone start
-    - npm run hermioneTestServer
+    - npm run selenium-standalone start &
+    - npm run hermioneTestServer &
     script:
     - npm run lint
     - npm test
