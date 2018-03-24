@@ -9,6 +9,7 @@ cache:
 aliases:
 - &deploy_template
   script: skip
+  install: skip
   before_deploy:
   - docker build --no-cache --tag registry.heroku.com/$APP/web .
   - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
@@ -44,7 +45,6 @@ jobs:
   - <<: *deploy_template
     stage: deploy staging
     if: tag IS blank
-    install: skip
     env:
     - APP=shri-2018-nodejs-homework-stag
     deploy: 
@@ -55,7 +55,6 @@ jobs:
   - <<: *deploy_template
     stage: deploy production
     if: tag IS present
-    install: skip
     env:
     - APP=shri-2018-nodejs-homework-prod
     deploy:
