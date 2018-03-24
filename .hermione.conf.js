@@ -1,11 +1,16 @@
 module.exports = {
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:5000',
   gridUrl: 'http://localhost:4444/wd/hub',
   browsers: {
-    iphone: {
+    chrome: {
       desiredCapabilities: {
-        browserName: 'iphone'
-      }
-    }
+        browserName: 'chrome',
+      },
+    },
+    // firefox: {
+    //   desiredCapabilities: {
+    //     browserName: 'firefox'
+    //   }
+    // }
   }
 }

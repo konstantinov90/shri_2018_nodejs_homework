@@ -1,55 +1,20 @@
-const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
 
 const { expect } = require('chai');
-const rimraf = require('rimraf');
 
 const GitApi = require('../../server/GitApi');
+const { createMockRepo, disposeOfMockRepo } = require('../utils/createMockRepo');
 
 describe('testing', () => {
   const repoPath = path.join(__dirname, 'test_repo');
   const gitApi = new GitApi(repoPath);
 
   before('create test repository', async () => {
-    const deepFldr = 'deeply/rooted/folder'.split('/');
-
-    await deepFldr.reduce(async (p, f, i) => {
-      await p;
-      return promisify(fs.mkdir)(path.join(repoPath, ...deepFldr.slice(0, i + 1)));
-    }, promisify(fs.mkdir)(repoPath));
-    await gitApi.execGitCmd('init');
-
-    async function createFile(filename, content) {
-      await promisify(fs.writeFile)(path.join(repoPath, filename), content);
-    }
-
-    await createFile('first.txt', `hello test
-this is a test file
-hope you like me!
-`);
-    await gitApi.execGitCmd('add', '.');
-    await gitApi.execGitCmd('commit', '-m', 'first commit');
-
-    await createFile('first.txt', 'I think I gotta change!');
-    await createFile('second.md', `#hello!
-I am a second file
-hope you like the first one!
-`);
-    await gitApi.execGitCmd('add', '.');
-    await gitApi.execGitCmd('commit', '-m', 'second commit');
-
-    await createFile(path.join(...deepFldr, '.hidden'), `Shhh!
-Don't tell anybody you've seen me!
-`);
-    await gitApi.execGitCmd('add', '.');
-    await gitApi.execGitCmd('commit', '-m', 'third commit');
-
-    await gitApi.execGitCmd('branch', 'test_branch');
+    await createMockRepo(repoPath);
   });
 
   after('dispose of test repository', async () => {
-    await promisify(rimraf)(repoPath);
+    await disposeOfMockRepo(repoPath);
   });
 
   describe('GitApi static methods', () => {

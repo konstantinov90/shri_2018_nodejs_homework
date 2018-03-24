@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha test/server/*",
+    "herm": "hermione test/hermione/*",
     "dev": "set NODE_ENV=development& nodemon server/main.js --watch * --ignore node_modules/ -e js,properties",
     "lint": "eslint server/*.js test/server/*.js public/js/*.js",
     "build": "echo build",
@@ -14,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "png-img": "^2.1.1",
     "properties-reader": "0.0.16",
     "pug": "^2.0.1"
   },
