@@ -5,6 +5,9 @@ ENV PORT=9000
 ENV TARGET_REPO=https://github.com/konstantinov90/shri_2018_nodejs_homework.git
 
 RUN git --version
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 RUN wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
 RUN tar -zxf git-2.9.5.tar.gz
 WORKDIR /git-2.9.5
