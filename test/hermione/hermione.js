@@ -29,7 +29,9 @@ describe('Index page', () => {
     await this.browser.url('/');
     expect(await this.browser.getText('.repo-url')).to.be.equal(TEST_REPO_URL);
   });
+});
 
+describe('Branch page', () => {
   it('should properly list commits', async function() {
     await this.browser.url('/');
     await this.browser.element('.head').click('=коммиты');
@@ -64,7 +66,9 @@ describe('Index page', () => {
       expect(lis.value.length).to.be.equal(MASTER_LITTLE_HIGHER_HIDDEN_FILES_LIST_LENGTH);
     });
   });
+});
 
+describe('Commit page', () => {
   it('should correctly open file', async function () {
     await this.browser.url('/');
     await this.browser.element('.head').click('=файлы');

@@ -11,7 +11,7 @@
     "hermioneLocal": "set HERMIONE=local& node test/utils/preHermione.js& hermione test/hermione/& node test/utils/postHermione.js",
     "hermione": "hermione test/hermione/*",
     "dev": "gulp dev",
-    "build": "gulp build",
+    "build": "set NODE_ENV=production& gulp build",
     "start": "set NODE_ENV=production& node server/main.js"
   },
   "author": "",
@@ -32,6 +32,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-cli": "^2.0.1",
+    "gulp-minify": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-stylus": "^2.7.0",
     "hermione": "^0.65.2",

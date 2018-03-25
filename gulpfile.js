@@ -2,6 +2,9 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const nodemon = require('gulp-nodemon');
 const stylus = require('gulp-stylus');
+const minify = require('gulp-minify');
+
+const isProd = process.env.NODE_ENV === 'production';
 
 gulp.task('nodemon', () => {
 	nodemon({
@@ -30,15 +33,21 @@ gulp.task('build:js', () =>
 				}
 			]],
 		}))
+		.pipe(minify({
+      ext: {
+        min: isProd ? '.js' : '-min.js',
+      },
+			noSource: isProd,
+    }))
 		.pipe(gulp.dest('dist/js'))
 );
 
 gulp.task('build:styl', function() {
-    return gulp.src('src/styles/*.styl')
-        .pipe(stylus())
-        .pipe(gulp.dest('dist/css'));
+  return gulp.src('src/styles/*.styl')
+    .pipe(stylus())
+    .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('dev', ['watcher', 'nodemon']);
+gulp.task('dev', ['build', 'watcher', 'nodemon']);
 
 gulp.task('build', ['build:js', 'build:styl']);
