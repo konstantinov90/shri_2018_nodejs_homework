@@ -23,7 +23,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-RUN npm build
+RUN npm run build
 EXPOSE ${PORT}
 
 # заполняем app.properties

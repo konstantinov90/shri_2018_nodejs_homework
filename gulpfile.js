@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const nodemon = require('gulp-nodemon');
+const stylus = require('gulp-stylus');
 
 gulp.task('nodemon', () => {
 	nodemon({
@@ -32,6 +33,12 @@ gulp.task('build:js', () =>
 		.pipe(gulp.dest('dist/js'))
 );
 
+gulp.task('build:styl', function() {
+    return gulp.src('src/styles/*.styl')
+        .pipe(stylus())
+        .pipe(gulp.dest('dist/css'));
+});
+
 gulp.task('dev', ['watcher', 'nodemon']);
 
-gulp.task('build', ['build:js']);
+gulp.task('build', ['build:js', 'build:styl']);
