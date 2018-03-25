@@ -51,6 +51,22 @@ Don't tell anybody you've seen me!
   await gitApi.execGitCmd('branch', 'test_branch');
 }
 
+async function cloneTestRepo(repoPath) {
+  const gitApi = new GitApi(repoPath);
+  await createFolder(repoPath);
+  await gitApi.execGitCmd('clone', 'https://github.com/konstantinov90/shri_2018_css_homework', repoPath);
+  const branches = await gitApi.execGitCmd('branch', '--list', '-a')
+    .then(GitApi.splitLines);
+  await branches.filter(b => !b.includes('master'))
+    .map(b => b.split('/').slice(-1))
+    .reduce(async (p, b) => {
+      await p;
+      return gitApi.execGitCmd('checkout', b);
+    }, Promise.resolve());
+
+  await gitApi.execGitCmd('checkout', 'master');
+}
+
 async function disposeOfMockRepo(repoPath) {
   await promisify(rimraf)(repoPath);
 }
@@ -58,5 +74,5 @@ async function disposeOfMockRepo(repoPath) {
 const repoPath = path.join(__dirname, 'test_repo');
 
 module.exports = {
-  createFolder, createMockRepo, disposeOfMockRepo, repoPath,
+  createMockRepo, cloneTestRepo, disposeOfMockRepo, repoPath,
 };

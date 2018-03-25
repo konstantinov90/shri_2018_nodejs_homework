@@ -31,4 +31,10 @@ if (process.env.HERMIONE === 'local') {
   gridUrl = `http://konstantinov90:${process.env.SAUCELABS_API_KEY}@ondemand.saucelabs.com:80/wd/hub`;
 }
 
-module.exports = { baseUrl, gridUrl, browsers };
+const plugins = {
+  'html-reporter/hermione': {
+    path: 'hermione-html-report',
+  },
+};
+
+module.exports = { baseUrl, gridUrl, browsers, plugins };

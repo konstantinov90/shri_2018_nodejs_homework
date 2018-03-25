@@ -22,7 +22,8 @@ RUN mkdir /target
 WORKDIR /app
 COPY . .
 
-RUN npm install --only=production
+RUN npm install
+RUN npm build
 EXPOSE ${PORT}
 
 # заполняем app.properties

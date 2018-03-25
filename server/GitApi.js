@@ -80,7 +80,10 @@ class GitApi {
         buffer = buffer ? buffer + data : data;
       });
       runner.stderr.on('data', (data) => {
-        reject(data.toString());
+        // почему-то git clone фигачит output сюда
+        // поэтому интерпретирую это не как ошибку
+        buffer = buffer ? buffer + data : data;
+        // reject(data.toString());
       });
       runner.on('close', () => {
         resolve(buffer ? buffer.toString() : null);

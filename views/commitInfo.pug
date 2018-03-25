@@ -19,7 +19,7 @@ block content
   if root
     for el, i in ['..'].concat(path)
       a.bread-crumb(href='../'.repeat(linkDepth--))= el+'/  '
-  ul
+  ul.root
     +walkTree(commitFiles, './')
 
 block scripts

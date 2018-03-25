@@ -56,7 +56,7 @@ document.querySelector('.graph-btn').addEventListener('click', () => {
 });
 
 document.querySelector('.list-btn').addEventListener('click', () => {
-  document.querySelector('.list').classList.toggle('hidden');
+  document.querySelector('.commit-list').classList.toggle('hidden');
 });
 
 // разберемся с тултипом (для длинных коммит месседжей)
@@ -77,4 +77,3 @@ g.nodes().forEach((v) => {
     tooltip.classList.add('hidden');
   });
 });
-
